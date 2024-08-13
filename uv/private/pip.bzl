@@ -20,9 +20,12 @@ _COMMON_ATTRS = {
 }
 
 def _python_version(py3_runtime):
-    return "{major}.{minor}".format(
+    # micro is useful when there are some packages that exclude .0 versions due
+    # to a bug, such as !=3.11.0
+    return "{major}.{minor}.{micro}".format(
         major = py3_runtime.interpreter_version_info.major,
         minor = py3_runtime.interpreter_version_info.minor,
+        micro = py3_runtime.interpreter_version_info.micro,
     )
 
 def _python_runtime(ctx):
